@@ -6,13 +6,13 @@ This repo contains some optimal filters implemented in Python 3.6.6. The repo re
  - pandas
  - matplotlib
 
-The scripts take in the previously formatted ROS data (.bag files converted into .csv files)
+The scripts take in previously formatted ROS data (.bag files converted into .csv files) from the data folder
 
 ## Overview
 
-#static_system_estimator
+**static_system_estimator**
 
-The first filter *static_system_estimator*, as the name tells, estimates the values of a range of laser scans retrieved by a SICK LMS111 LIDAR sensor in a ROS Kinetic/Gazebo 7 simulation. During the simulation, the *Jackal robot* that integrates the laser does not move and therefore the readings should be the same. The filter is used to estimate more accurate ranges.
+The first filter *static_system_estimator*, as the name tells, estimates the values of a range of laser scans retrieved by a SICK LMS111 LIDAR sensor in a ROS Kinetic/Gazebo 7 simulation. During the simulation, the *Jackal robot* that integrates the laser does not move and therefore the readings should be the same. The filter could be used to estimate more accurate ranges; the last part of the script plots both the initial guess and the final estimate.
 
 ![Original laser readings in Rviz](images/laser0.png)
 
