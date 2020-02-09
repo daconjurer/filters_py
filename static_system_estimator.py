@@ -14,17 +14,10 @@ import pandas as pd
   state of the system are then calculated for the following time steps.
 """
 
-"""  Prediction function """
-def prediction(pred):
-  """ prediction represents the dynamic model of the system, it takes in
-  the System State Estimate at time step n and returns the predicted state
-  for the next time step n+1.
-  """
-  return pred
-
 """ The filter will be used to estimate the values of the simulated scans
   of the LIDAR Hokuyo in ROS Kinetic/Gazebo 7. All the values of the dataset
-  (range values aka ranges) are suposed to beconstant during the simulation time.
+  (range values aka ranges) are suposed to beconstant during the simulation
+  time but gaussian noise is added to every measurement.
 """
 
 """ Data loading
@@ -32,6 +25,12 @@ def prediction(pred):
 """
 
 scans = pd.read_csv("./data/data_jackal.csv")
+""" Noise is then added """
+mu = 0
+sigma = 0.5
+noise = np.random.normal(mu,sigma,scans.shape)
+scans = scans + noise
+
 #print(scans.index)
 #print(scans.columns)
 #print(scans.iloc[0,0])
@@ -42,8 +41,8 @@ k_gain = 0.0
 """ The first value of each class will be used as the initial guess
   i.e. the first predcition is equal to the intial guess for every class
 """
-estimates = scans.iloc[0]
-x_prev = estimates
+initial_guess = scans.iloc[0]
+x_prev = initial_guess
 #print(estimates)
 
 #print(len(scans.index))
@@ -75,12 +74,12 @@ print(x_curr)
 theta_l = np.deg2rad(np.linspace(135,0.375,num = 360))
 theta_r = np.deg2rad(np.linspace(360,225.375,num = 360))
 theta =np.concatenate((theta_l,theta_r))
-r = x_curr
+r_estimates = x_curr
 
 theta_max = 135
 theta_min = -135
 
-size = np.full((1,len(r)),1)
+size = np.full((1,len(r_estimates)),1)
 
 theta2 = np.deg2rad(np.linspace(135,100,20))
 r2 = np.linspace(1,3,20)
@@ -89,14 +88,14 @@ fig = plt.figure()
 ax1 = fig.add_subplot(121,projection='polar')
 theta1 = theta[0:9]
 r1 = r.values[0:9]
-c = ax1.scatter(theta,r,s = size,cmap = 'hsv',alpha = 1.0)
+c = ax1.scatter(theta,r_estimates,s = size,cmap = 'hsv',alpha = 1.0)
 ax1.set_thetamin(theta_min)
 ax1.set_thetamax(theta_max)
 ax1.set_theta_zero_location('N')
 ax1.set_theta_direction(-1)
 
 ax2 = fig.add_subplot(122,projection='polar')
-c = ax2.scatter(theta,estimates,s = size,cmap = 'hsv',alpha = 1.0)
+c = ax2.scatter(theta,initial_guess,s = size,cmap = 'hsv',alpha = 1.0)
 ax2.set_thetamin(theta_min)
 ax2.set_thetamax(theta_max)
 ax2.set_theta_zero_location('N')
