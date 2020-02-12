@@ -1,5 +1,6 @@
 # ignore
-kalman_filter.py
+kalman_filter/kalman_filter.py
+oneD_kalman_filter/oneD_kalman_filter.py
 data/data.csv
 data/scans.csv
 data/scans_jackal.csv

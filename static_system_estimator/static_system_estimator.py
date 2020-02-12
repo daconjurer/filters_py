@@ -31,22 +31,14 @@ sigma = 0.5
 noise = np.random.normal(mu,sigma,scans.shape)
 scans = scans + noise
 
-#print(scans.index)
-#print(scans.columns)
-#print(scans.iloc[0,0])
-
 """ Initialization """
 k_gain = 0.0
 
 """ The first value of each class will be used as the initial guess
-  i.e. the first predcition is equal to the intial guess for every class
+  i.e. the first prediction is equal to the intial guess for every class
 """
 initial_guess = scans.iloc[0]
 x_prev = initial_guess
-#print(estimates)
-
-#print(len(scans.index))
-#print(len(scans.columns))
 
 for i in range(len(scans.index)):
   """ The measurement at time step n (Zn) is processed """
