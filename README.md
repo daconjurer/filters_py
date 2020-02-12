@@ -1,4 +1,4 @@
-optinal_filters
+optimal_filters
 =========
 
 This repo contains some optimal filters implemented in C/C++ and Python 3.6.6. The repo examples have been tested using GCC 5.4.0 and an Anaconda virtual environment with Python3.6.6 and the following python modules:
