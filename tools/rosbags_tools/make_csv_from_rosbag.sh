@@ -1,0 +1,5 @@
+#!/bin/bash
+PATH_TO_ROSBAG=$1
+TOPIC_NAME=$2
+OUT_FILE=$3
+rostopic echo -b $PATH_TO_ROSBAG -p $TOPIC_NAME > $OUT_FILE

@@ -1,9 +1,11 @@
-# ignore
+# incomplete projects
 kalman_filter/
+
+# irrelevant data
 data/data.csv
 data/scans.csv
 data/scans_jackal.csv
-
+data/ekf_data/ranges.csv
 
 
 
